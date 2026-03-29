@@ -1,7 +1,11 @@
 import axios from 'axios';
 
-const API_KEY = 'db5612f4e61785b90cbf4bde69903536'; // Replace with your actual key
+const API_KEY = import.meta.env.VITE_API_KEY; // Replace with your actual key
 const BASE_URL = 'https://api.themoviedb.org/3';
+
+if (!API_KEY) {
+    console.error('API key is missing! Make sure VITE_API_KEY is set in your .env file');
+}
 
 const tmdb = axios.create({
     baseURL: BASE_URL,
