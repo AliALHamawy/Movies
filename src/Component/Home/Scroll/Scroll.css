@@ -1,0 +1,8 @@
+.scroll .card:hover .play{
+    opacity: 1;
+    
+}
+.scroll .card:hover {
+    /* min-width: 500px ; */
+    /* scale: calc(1.1) calc(1); */
+}

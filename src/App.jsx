@@ -1,8 +1,22 @@
+import { BrowserRouter, Route, Routes } from 'react-router'
 import './App.css'
+import { Footer, Header, Hero, Scroll } from './Import'
 
 function App() {
   return (
-    <div className='text-5xl'>App</div>
+    <>
+      <BrowserRouter >
+        <Header />
+        <Routes>
+          <Route path='/'
+            element={
+              <><Hero /><Scroll /></>
+            }
+          />
+        </Routes>
+        <Footer />
+      </BrowserRouter>
+    </>
   )
 }
 
