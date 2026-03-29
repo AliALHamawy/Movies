@@ -1,7 +1,8 @@
 @import "tailwindcss";
-
+/* @plugin "flyonui";
+@import "flyonui/variants.css";
+@source "./node_modules/flyonui/flyonui.js";  */
 
 body{
-    background-color: var(--bg-main);
-    font-family: cursive;
+    /* background-color: #fff !important; */
 }
