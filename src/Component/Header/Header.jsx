@@ -2,6 +2,7 @@ import { BiSearchAlt2 } from "react-icons/bi";
 import { motion } from "framer-motion"; // 1. استيراد المكتبة
 import './Header.css'
 import { useState } from "react";
+import { Link } from "react-router";
 
 function Header() {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
@@ -24,24 +25,24 @@ function Header() {
         }}
         className="top-0 inset-x-0 flex z-50 w-full text-sm fixed px-4"
       >
-        <nav className="mt-4 bg-(--color-nav) relative text-(--color-text) max-w-2xl w-full border border-(--color-border) rounded-[24px] mx-2 flex flex-wrap md:flex-nowrap items-center justify-between mx-auto px-4 py-1">
+        <nav className="mt-4 bg-(--color-nav) relative text-(--color-text) max-w-2xl w-full border-transparent border-(--color-border) rounded-[24px] mx-2 flex flex-wrap md:flex-nowrap items-center justify-between mx-auto px-4 py-1">
           <div className="flex">
             <a className="flex-none rounded-md text-xl inline-block font-semibold focus:outline-hidden focus:opacity-80" href="index.html" aria-label="Preline">
               <img src="/assets/Gemini_Generated_Image_h25dx9h25dx9h25d-removebg-preview.png" alt="Logo" className="w-20 h-auto"/>
             </a>
           </div>
 
-          <div className="overflow-hidden transition-all duration-300 flex justify-between items-center w-[170px] md:w-[200px] m-auto">
-            <a href="#">Home</a>
-            <a href="#">Movies</a>
-            <a href="#">Series</a>
+          <div className="transition-all text-[18.5px] md:gap-3 lg:gap-3 duration-300 flex justify-between items-center w-[170px] md:w-[200px] m-auto">
+            <Link className="transition-all duration-300 hover:scale-110 z-50 m-auto hover:text-yellow-500">Home</Link>
+            <Link className="transition-all duration-300 hover:scale-110 z-50 m-auto hover:text-yellow-500">Movies</Link>
+            <Link className="transition-all duration-300 hover:scale-110 z-50 m-auto hover:text-yellow-500">Series</Link>
           </div>
 
           <div className="flex items-center relative gap-1 md:order-4 md:ms-4">
             <input 
               type="text" 
               id="aaa" 
-              className={`bg-(--search-bg) absolute right-7 transition-all duration-300 text-(--color-text) overflow-hidden ${
+              className={`bg-(--search-bg) absolute right-7 transition-all duration-300 text-(--color-text) overflow-hidden border focus:border-amber-500 ${
                 isSearchOpen 
                 ? 'w-[150px] border p-1 border-(--color-border) px-2 outline-0 rounded-2xl opacity-100' 
                 : 'w-0 border-none p-0 opacity-0 pointer-events-none'
@@ -49,7 +50,7 @@ function Header() {
               placeholder="search..."
             />
             <BiSearchAlt2 
-              className="text-xl cursor-pointer hover:scale-110 transition-transform" 
+              className={`text-xl cursor-pointer transition-all duration-300 hover:scale-110 hover:text-amber-500 ${isSearchOpen ? 'text-amber-500' : ''} transition-transform`} 
               onClick={toggleSearch} 
             />
           </div>

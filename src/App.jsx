@@ -8,7 +8,7 @@ function App() {
     <>
       <BrowserRouter >
         <Header />
-        {/* <SideBar/> */}
+        <SideBar/>
         <Routes>
           <Route path='/'
             element={

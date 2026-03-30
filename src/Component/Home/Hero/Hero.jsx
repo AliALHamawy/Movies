@@ -1,7 +1,7 @@
 import { BsFillPlayFill } from "react-icons/bs";
-import { motion, AnimatePresence } from "framer-motion"; 
+import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
-import tmdb from "../../../services/tmdb"; 
+import tmdb from "../../../services/tmdb";
 import './Hero.css';
 
 function Hero() {
@@ -19,6 +19,7 @@ function Hero() {
         { id: 9737, type: 'movie', title: 'Bad Boys' },
         { id: 541671, type: 'movie', title: 'Ballerina' },
         { id: 603, type: 'movie', title: 'The Matrix (1999)' },
+        { id: 238, type: 'movie', title: 'The Godfather (1972)' },
         { id: 1396, type: 'tv', title: 'Breaking Bad' },
         { id: 2109, type: 'movie', title: 'Rush Hour' }
     ];
@@ -65,39 +66,41 @@ function Hero() {
                 />
             </AnimatePresence>
 
-            <motion.div 
-                key={movie.id} 
-                className="cont flex flex-col max-w-[450px] p-4 text-(--color-text) gap-4 absolute bottom-[27%] left-[10%] z-10"
+            <motion.div
+                key={movie.id}
+                className="cont flex flex-col max-w-[450px] p-4 text-(--color-text) gap-4 absolute bottom-[10%] md:bottom-[27%] lg:bottom-[27%] left-[10%] z-10"
                 initial={{ opacity: 0, x: -30 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.8, delay: 0.5 }}
             >
-                <h1 className="text-5xl font-bold leading-tight">
+                <h1 className="text-4xl md:text-5xl font-bold leading-tight">
                     {movie.title || movie.name}
                 </h1>
-                
-                <p className="text-lg min-h-[120px] max-h-[120px] overflow-hidden opacity-90 line-clamp-4 text-gray-300">
+
+                <p className="text-md md:text-lg min-h-[120px] max-h-[120px] overflow-hidden opacity-90 line-clamp-4 text-gray-300">
                     {movie.overview}
                 </p>
 
                 <div className="flex items-center gap-4">
-                    <div className="text-white text-[14px] flex gap-2 shadow-lg bg-black/40 px-4 py-1 rounded-full items-center border border-white/20 font-bold">
+                    <div className="text-white text-[14px] flex gap-2 shadow-lg bg-(--color-nav) px-4 py-1 rounded-full items-center border border-white/20 font-bold">
                         Rate: <span className="text-amber-500">{movie.vote_average?.toFixed(1)}</span>
                     </div>
-                    {/* إضافة سنة الإنتاج كـ "لمسة معلم" */}
                     <span className="text-gray-400 font-semibold">
                         {(movie.release_date || movie.first_air_date)?.split('-')[0]}
                     </span>
                 </div>
 
                 <div className="flex gap-4 mt-2">
-                    <button className="bg-(--color-border) shadow-xl transition-all duration-300 hover:bg-white hover:text-black w-[160px] h-[45px] rounded-full border border-(--btn-border) flex gap-2 justify-center items-center font-bold">
+                    <motion.button
+                        whileHover={{ scale: 1.1}}
+                        whileTap={{ scale: 0.9 }}
+                        className="bg-(--color-border) shadow-xl transition-all duration-200 hover:bg-(--hov-bg) w-[160px] h-[45px] rounded-full border border-(--btn-border) flex gap-2 justify-center items-center font-bold">
                         Show Details
-                    </button>
-                    <motion.button 
+                    </motion.button>
+                    <motion.button
                         whileHover={{ scale: 1.1, backgroundColor: "#f59e0b" }}
                         whileTap={{ scale: 0.9 }}
-                        className="bg-white/10 backdrop-blur-md w-[45px] h-[45px] rounded-full border border-white/20 flex justify-center items-center"
+                        className="bg-(--color-border) backdrop-blur-md transition-all duration-200 w-[45px] h-[45px] rounded-full border border-white/20 flex justify-center items-center"
                     >
                         <BsFillPlayFill className="text-2xl text-white hover:text-black" />
                     </motion.button>
