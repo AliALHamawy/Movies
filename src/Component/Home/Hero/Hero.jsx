@@ -68,7 +68,7 @@ function Hero() {
 
             <motion.div
                 key={movie.id}
-                className="cont flex flex-col max-w-[450px] p-4 text-(--color-text) gap-4 absolute bottom-[10%] md:bottom-[27%] lg:bottom-[27%] left-[10%] z-10"
+                className="cont flex flex-col max-w-[450px] p-4 text-(--color-text) gap-4 absolute bottom-[2%] left-[2%] md:bottom-[27%] lg:bottom-[27%] md:left-[10%] lg:left-[10%] z-10"
                 initial={{ opacity: 0, x: -30 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.8, delay: 0.5 }}

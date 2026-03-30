@@ -32,7 +32,7 @@ function Header() {
             </a>
           </div>
 
-          <div className="transition-all text-[18.5px] md:gap-3 lg:gap-3 duration-300 flex justify-between items-center w-[170px] md:w-[200px] m-auto">
+          <div className="transition-all text-[16px] md:text-[18.5px] lg:text-[18.5px] md:gap-3 lg:gap-3 duration-300 flex justify-between items-center w-[170px] md:w-[200px] m-auto">
             <Link className="transition-all duration-300 hover:scale-110 z-50 m-auto hover:text-yellow-500">Home</Link>
             <Link className="transition-all duration-300 hover:scale-110 z-50 m-auto hover:text-yellow-500">Movies</Link>
             <Link className="transition-all duration-300 hover:scale-110 z-50 m-auto hover:text-yellow-500">Series</Link>
@@ -42,9 +42,9 @@ function Header() {
             <input 
               type="text" 
               id="aaa" 
-              className={`bg-(--search-bg) absolute right-7 transition-all duration-300 text-(--color-text) overflow-hidden border focus:border-amber-500 ${
+              className={`bg-(--search-bg-mobile) z-100 md:bg-(--search-bg) lg:bg-(--search-bg) absolute right-7 transition-all duration-300 text-(--color-text) overflow-hidden border focus:border-amber-500 ${
                 isSearchOpen 
-                ? 'w-[150px] border p-1 border-(--color-border) px-2 outline-0 rounded-2xl opacity-100' 
+                ? 'w-[150px] border p-1 border-(--color-border) px-2 outline-0 z-30 rounded-2xl opacity-100' 
                 : 'w-0 border-none p-0 opacity-0 pointer-events-none'
               }`} 
               placeholder="search..."
