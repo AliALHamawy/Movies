@@ -3,7 +3,14 @@
 @import "flyonui/variants.css";
 @source "./node_modules/flyonui/flyonui.js";  */
 :root {
-    --color-main: oklch(0% 0 0);
-    --color-text: oklch(100% 0.00011 271.152);
-    --color-border: oklch(63.343% 0.00007 271.152 / 0.37);
+    --color-main: #262626;
+    --color-text: #e5e5e5;
+    --color-textlight: #e5e5e5af;
+    --color-border: #8a8a8a5e;
+    --color-nav: #1d1c1cec;
+    --btn-border: #ffffff63;
+    --search-bg: #171717ab;
+    --hov-bg: #8a8a8a8c;
+    --color-blue: #0083ff;
+    --shadow-main: 4px 4px 6px var(--search-bg);
 }
