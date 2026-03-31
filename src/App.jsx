@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Routes } from 'react-router'
 import './App.css'
-import { Contact, Footer, Header, Hero, Scroll,SideBar,GoToNextSection } from './Import'
+import { Contact, Footer, Header, Hero, Scroll, SideBar, GoToNextSection, MovSir } from './Import'
 
 function App() {
   return (
@@ -11,15 +11,27 @@ function App() {
         <Routes>
           <Route path='/'
             element={
-              <><Hero /><Scroll /><Contact/><SideBar /></>
+              <><Hero /><Scroll /><Contact /><SideBar /></>
             }
           />
+          <Route path='/movies'
+            element={
+              <MovSir type="movie" />
+            }
+          />
+          {/* Route for Series */}
+          <Route path='/series'
+            element={
+              <MovSir type="series" />
+            }
+          />
+
         </Routes>
         <Footer />
-        </BrowserRouter>
-        </>
-      )
-    }
-    
+      </BrowserRouter>
+    </>
+  )
+}
+
 export default App
-    // <GoToNextSection/>
+// <GoToNextSection/>
