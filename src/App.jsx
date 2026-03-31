@@ -1,18 +1,17 @@
 import { BrowserRouter, Route, Routes } from 'react-router'
 import './App.css'
-import { Footer, Header, Hero, Scroll } from './Import'
-import SideBar from './Component/SideBar/SideBar'
+import { Contact, Footer, Header, Hero, Scroll,SideBar } from './Import'
 
 function App() {
   return (
     <>
       <BrowserRouter >
         <Header />
-        <SideBar/>
+
         <Routes>
           <Route path='/'
             element={
-              <><Hero /><Scroll /></>
+              <><Hero /><Scroll /><Contact/><SideBar /></>
             }
           />
         </Routes>

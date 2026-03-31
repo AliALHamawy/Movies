@@ -51,7 +51,7 @@ function Hero() {
     if (!movie) return <div className="h-screen bg-black"></div>;
 
     return (
-        <div className="relative min-h-screen w-full overflow-hidden">
+        <div id="Home" className="relative min-h-screen w-full overflow-hidden">
             <AnimatePresence mode="wait">
                 <motion.div
                     key={movie.id}

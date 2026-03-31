@@ -4,7 +4,7 @@
 @source "./node_modules/flyonui/flyonui.js";  */
 
 body{
-    background-color: var(--color-main);
+    background-color: #101010;
   -webkit-user-select: none; /* Safari */
   -ms-user-select: none;     /* Internet Explorer/Edge */
   user-select: none;         /* Standard syntax */

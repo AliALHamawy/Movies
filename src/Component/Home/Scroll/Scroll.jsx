@@ -51,7 +51,7 @@ function Scroll() {
     );
 
     return (
-        <div className="scroll h-screen w-full overflow-hidden flex flex-col bg-black">
+        <div id="Hot" className="scroll h-screen w-full overflow-hidden flex flex-col bg-black">
             {rows.map((row) => {
                 // Get the specific movie list for this row
                 const currentMovies = movieData[row.category] || [];
