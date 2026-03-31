@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Routes } from 'react-router'
 import './App.css'
-import { Contact, Footer, Header, Hero, Scroll,SideBar } from './Import'
+import { Contact, Footer, Header, Hero, Scroll,SideBar,GoToNextSection } from './Import'
 
 function App() {
   return (
@@ -16,9 +16,10 @@ function App() {
           />
         </Routes>
         <Footer />
-      </BrowserRouter>
-    </>
-  )
-}
-
+        </BrowserRouter>
+        </>
+      )
+    }
+    
 export default App
+    // <GoToNextSection/>

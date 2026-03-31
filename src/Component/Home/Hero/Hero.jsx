@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
 import tmdb from "../../../services/tmdb";
 import './Hero.css';
+import GoToNextSection from "../../GoToNextSection/GoToNextSection";
 
 function Hero() {
     const [movie, setMovie] = useState(null);
@@ -106,6 +107,7 @@ function Hero() {
                     </motion.button>
                 </div>
             </motion.div>
+            <GoToNextSection direction="bottom-6 right-6" scrollTo="Hot"/>
         </div>
     );
 }

@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { motion } from "framer-motion";
 import tmdb from "../../../services/tmdb";
 import './Scroll.css';
+import GoToNextSection from "../../GoToNextSection/GoToNextSection";
 
 function Scroll() {
     // Initialized as null to handle the loading state properly
@@ -43,15 +44,16 @@ function Scroll() {
         { id: 3, category: "action", animate: ["0%", "-100%"] },
         { id: 4, category: "horror", animate: ["-100%", "0%"] },
     ];
-
+    
     if (!movieData) return (
         <div className="h-screen w-full bg-black flex items-center justify-center text-white text-2xl font-bold">
             LOADING...
         </div>
     );
-
+    
     return (
-        <div id="Hot" className="scroll h-screen w-full overflow-hidden flex flex-col bg-black">
+        <div id="Hot" className="scroll relative  h-screen w-full overflow-hidden flex flex-col bg-black">
+            <GoToNextSection direction="z-30 bottom-6 left-6" scrollTo="Contact"/>
             {rows.map((row) => {
                 // Get the specific movie list for this row
                 const currentMovies = movieData[row.category] || [];
