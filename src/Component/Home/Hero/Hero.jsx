@@ -27,11 +27,11 @@ function Hero() {
 
     useEffect(() => {
         const fetchMovieData = async () => {
-            // نأخذ الـ id والـ type من العنصر الحالي في القائمة بناءً على الـ index
+
             const { id, type } = itemsToFetch[index];
 
             try {
-                // جلب البيانات مباشرة باستخدام النوع والآيدي
+
                 const response = await tmdb.get(`/${type}/${id}`);
                 setMovie(response.data);
             } catch (error) {
@@ -41,7 +41,6 @@ function Hero() {
 
         fetchMovieData();
 
-        // تغيير الفيلم تلقائياً كل 8 ثوانٍ
         const timer = setInterval(() => {
             setIndex((prev) => (prev + 1) % itemsToFetch.length);
         }, 8000);
@@ -56,7 +55,7 @@ function Hero() {
             <AnimatePresence mode="wait">
                 <motion.div
                     key={movie.id}
-                    initial={{ opacity: 0, scale: 1.1 }} // تأثير زووم بسيط عند البداية
+                    initial={{ opacity: 0, scale: 1.1 }} 
                     animate={{ opacity: 1, scale: 1 }}
                     exit={{ opacity: 0 }}
                     transition={{ duration: 1.5 }}
@@ -93,7 +92,7 @@ function Hero() {
 
                 <div className="flex gap-4 mt-2">
                     <motion.button
-                        whileHover={{ scale: 1.1}}
+                        whileHover={{ scale: 1.1 }}
                         whileTap={{ scale: 0.9 }}
                         className="bg-(--color-border) shadow-xl transition-all duration-200 hover:bg-(--hov-bg) w-[160px] h-[45px] rounded-full border border-(--btn-border) flex gap-2 justify-center items-center font-bold">
                         Show Details
@@ -107,7 +106,7 @@ function Hero() {
                     </motion.button>
                 </div>
             </motion.div>
-            <GoToNextSection direction="bottom-6 right-6" scrollTo="Hot"/>
+            <GoToNextSection direction="bottom-6 right-6" scrollTo="Hot" />
         </div>
     );
 }
