@@ -26,9 +26,9 @@ function Header() {
       >
         <nav className="mt-4 bg-(--color-nav) relative text-(--color-text) max-w-2xl w-full border-transparent border-(--color-border) rounded-[24px] mx-2 flex flex-wrap md:flex-nowrap items-center justify-between mx-auto px-4 py-1">
           <div className="flex">
-            <a className="flex-none rounded-md text-xl inline-block font-semibold focus:outline-hidden focus:opacity-80" href="index.html" aria-label="Preline">
+            <Link className="flex-none rounded-md text-xl inline-block font-semibold focus:outline-hidden focus:opacity-80" to='/'>
               <img src="/assets/Gemini_Generated_Image_h25dx9h25dx9h25d-removebg-preview.png" alt="Logo" className="w-20 h-auto" />
-            </a>
+            </Link>
           </div>
 
           <div className="transition-all text-[16px] md:text-[18.5px] lg:text-[18.5px] gap-4 duration-300 flex justify-between items-center w-[170px] md:w-[200px] m-auto">

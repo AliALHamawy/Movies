@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Routes } from 'react-router'
 import './App.css'
-import { Contact, Footer, Header, Hero, Scroll, SideBar, GoToNextSection, MovSir } from './Import'
+import { Contact, Footer, Header, Hero, Scroll, SideBar, Info, MovSir } from './Import'
 
 function App() {
   return (
@@ -25,7 +25,7 @@ function App() {
               <MovSir type="series" />
             }
           />
-
+          <Route path='/details/:type/:id' element={<Info/>}/>
         </Routes>
         <Footer />
       </BrowserRouter>

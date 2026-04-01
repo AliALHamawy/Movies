@@ -1,0 +1,20 @@
+@media (max-width: 1300px) {
+    .info .abc,
+    .info .abc img,
+    .info .abc div{
+        flex-direction: column !important;
+        margin: auto;
+        display: flex;
+        justify-content: center !important;
+        text-align: center !important;
+    }
+    .info .abc .icons {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        flex-direction:  row !important;
+    }
+    .info .abc .icons .cba{
+        max-width: 120px;
+    }
+}

@@ -2,11 +2,14 @@ import { useState, useEffect } from 'react';
 import './MovSir.css';
 import { motion } from "framer-motion";
 import tmdb from '../../services/tmdb';
+import { useNavigate } from 'react-router';
 
 function MovSir({ type }) {
     const [data, setData] = useState([]);
     const [page, setPage] = useState(1);
     const [loading, setLoading] = useState(true);
+    const navigate = useNavigate()
+
 
     const IMG_PATH = "https://image.tmdb.org/t/p/w1280";
 
@@ -16,18 +19,33 @@ function MovSir({ type }) {
             try {
                 const endPoint = type === 'movie' ? '/movie/popular' : '/tv/popular';
                 const response = await tmdb.get(endPoint, {
-                    params: { page: page } 
+                    params: {
+                        page: page,
+                        include_adult: false,
+                    }
                 });
 
-                const forbiddenKeywords = ['lgbt', 'gay', 'lesbian', 'queer', 'bisexual'];
-                
+                const forbiddenIds = [879945, 1646787, 45933, 1650558, 1266990, 1489, 95897, 67136, 203737, 1301994, 687259, 79871, 1064028, 860410, 398818, 1015998, 519465, 1847, 1297842, 1652947, 346698, 228091]
+
+
+                const forbiddenKeywords = [
+                    'lgbt', 'gay', 'lesbian', 'queer', 'bisexual',
+                    'sex', 'erotic', 'porn', 'nudity', 'sensual',
+                    'lust', 'prostitute', 'stripper', 'sexual', "The Unknown Man", "SunDutan"
+                ];
+
                 const filteredResults = response.data.results.filter(item => {
+                    if (item.adult) return false;
+                    if (item.original_language === 'ja') return false;
+                    const isForbiddenId = forbiddenIds.includes(item.id);
                     const title = (item.title || item.name || '').toLowerCase();
                     const overview = (item.overview || '').toLowerCase();
-                    
-                    return !forbiddenKeywords.some(keyword => 
+
+                    const hasForbiddenKeyword = forbiddenKeywords.some(keyword =>
                         title.includes(keyword) || overview.includes(keyword)
                     );
+
+                    return !isForbiddenId && !hasForbiddenKeyword;
                 });
 
                 setData(filteredResults);
@@ -44,35 +62,36 @@ function MovSir({ type }) {
     if (loading) return <div className="h-screen flex items-center justify-center text-white text-2xl">Loading...</div>;
 
     return (
-        <div className="movSir mt-25 flex flex-col text-center">
-            <h1 className='my-10 text-(--color-text) text-4xl font-black m-auto'>
+        <div className="movSir mt-25 flex flex-col text-left">
+            <h1 className='my-15 text-(--color-text) text-4xl font-black m-auto '>
                 Watch your favorite {type === 'movie' ? 'Movie' : 'Series'}
             </h1>
-            
+
             <div className='flex gap-6 px-4 justify-center flex-wrap m-8 mb-10'>
                 {data.map((item) => (
-                    <motion.div 
+                    <motion.div
                         key={item.id}
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
-                        className="bg-(--search-bg) h-auto pb-6 rounded-lg shadow-2xl w-full sm:w-[350px] border border-(--btn-border) overflow-hidden"
+                        className="bg-(--search-bg) max-h-[690px] pb-6 rounded-lg shadow-2xl w-full sm:w-[350px] border border-(--btn-border) overflow-hidden flex flex-col justify-between"
                     >
-                        <img 
-                            src={item.poster_path ? `${IMG_PATH}${item.poster_path}` : '/assets/placeholder.jpg'} 
-                            alt={item.title || item.name} 
-                            className='w-full h-[450px] object-cover' 
+                        <img
+                            src={item.poster_path ? `${IMG_PATH}${item.poster_path}` : '/assets/placeholder.jpg'}
+                            alt={item.title || item.name}
+                            className='w-full h-[450px] object-cover'
                         />
                         <div className="flex flex-col p-4 gap-3">
                             <h1 className='text-xl font-bold text-(--color-text) truncate'>{item.title || item.name}</h1>
-                            <p className='text-sm text-gray-400 line-clamp-3 text-left min-h-[60px]'>
+                            <p className='text-sm text-gray-400 line-clamp-3 text-left h-[90px]'>
                                 {item.overview || "No description available."}
                             </p>
-                            
+
                             <div className="flex justify-between items-center mt-3">
                                 <motion.button
                                     whileHover={{ scale: 1.05 }}
                                     whileTap={{ scale: 0.95 }}
                                     className="bg-(--color-border) shadow-xl transition-all duration-200 hover:bg-amber-500 px-6 py-2 rounded-full border border-(--btn-border) font-bold text-(--color-text)"
+                                    onClick={() => navigate(`/details/${type}/${item.id}`)}
                                 >
                                     Show Details
                                 </motion.button>
@@ -95,15 +114,21 @@ function MovSir({ type }) {
                     </svg>
                 </li>
 
-                {[...Array(5)].map((_, i) => (
-                    <li
-                        key={i + 1}
-                        onClick={() => setPage(i + 1)}
-                        className={`flex items-center justify-center shrink-0 cursor-pointer text-base font-medium px-[13px] h-10 rounded-md transition-colors ${page === i + 1 ? 'bg-amber-500 text-white' : 'text-(--color-text) hover:bg-white/10'}`}
-                    >
-                        {i + 1}
-                    </li>
-                ))}
+                {Array.from({ length: 5 }, (_, i) => {
+                    const startPage = Math.max(1, page - 2);
+                    const pageNum = startPage + i;
+
+                    return (
+                        <li
+                            key={pageNum}
+                            onClick={() => setPage(pageNum)}
+                            className={`flex items-center justify-center shrink-0 cursor-pointer text-base font-medium px-[13px] h-10 rounded-md transition-colors ${page === pageNum ? 'bg-amber-500 text-white' : 'text-(--color-text) hover:bg-white/10'
+                                }`}
+                        >
+                            {pageNum}
+                        </li>
+                    );
+                })}
 
                 <li
                     onClick={() => setPage(p => p + 1)}
