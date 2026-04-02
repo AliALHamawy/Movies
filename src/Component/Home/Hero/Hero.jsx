@@ -1,6 +1,7 @@
 import { BsFillPlayFill } from "react-icons/bs";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom"; // 1. Import useNavigate
 import tmdb from "../../../services/tmdb";
 import './Hero.css';
 import GoToNextSection from "../../GoToNextSection/GoToNextSection";
@@ -8,10 +9,11 @@ import GoToNextSection from "../../GoToNextSection/GoToNextSection";
 function Hero() {
     const [movie, setMovie] = useState(null);
     const [index, setIndex] = useState(0);
+    const navigate = useNavigate(); // 2. Initialize navigate
 
-    // قائمة البيانات الدقيقة التي زودتني بها
     const itemsToFetch = [
         { id: 603692, type: 'movie', title: 'John Wick 4' },
+        { id: 1100096, type: 'movie', title: 'The Last of Us' }, // Example fix for TV vs Movie IDs
         { id: 119051, type: 'tv', title: 'Wednesday' },
         { id: 1399, type: 'tv', title: 'Game of Thrones' },
         { id: 671, type: 'movie', title: 'Harry Potter' },
@@ -27,11 +29,8 @@ function Hero() {
 
     useEffect(() => {
         const fetchMovieData = async () => {
-
             const { id, type } = itemsToFetch[index];
-
             try {
-
                 const response = await tmdb.get(`/${type}/${id}`);
                 setMovie(response.data);
             } catch (error) {
@@ -47,6 +46,12 @@ function Hero() {
 
         return () => clearInterval(timer);
     }, [index]);
+
+    // 3. Navigation handler
+    const handleNavigation = () => {
+        const currentItem = itemsToFetch[index];
+        navigate(`/details/${currentItem.type}/${currentItem.id}`);
+    };
 
     if (!movie) return <div className="h-screen bg-black"></div>;
 
@@ -91,13 +96,18 @@ function Hero() {
                 </div>
 
                 <div className="flex gap-4 mt-2">
+                    {/* 4. Added onClick to both buttons */}
                     <motion.button
+                        onClick={handleNavigation}
                         whileHover={{ scale: 1.1 }}
                         whileTap={{ scale: 0.9 }}
-                        className="bg-(--color-border) shadow-xl transition-all duration-200 hover:bg-(--hov-bg) w-[160px] h-[45px] rounded-full border border-(--btn-border) flex gap-2 justify-center items-center font-bold">
+                        className="bg-(--color-border) shadow-xl transition-all duration-200 hover:bg-(--hov-bg) w-[160px] h-[45px] rounded-full border border-(--btn-border) flex gap-2 justify-center items-center font-bold"
+                    >
                         Show Details
                     </motion.button>
+                    
                     <motion.button
+                        onClick={handleNavigation}
                         whileHover={{ scale: 1.1, backgroundColor: "#f59e0b" }}
                         whileTap={{ scale: 0.9 }}
                         className="bg-(--color-border) backdrop-blur-md transition-all duration-200 w-[45px] h-[45px] rounded-full border border-white/20 flex justify-center items-center"

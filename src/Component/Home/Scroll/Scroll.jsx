@@ -4,10 +4,11 @@ import { motion } from "framer-motion";
 import tmdb from "../../../services/tmdb";
 import './Scroll.css';
 import GoToNextSection from "../../GoToNextSection/GoToNextSection";
+import { useNavigate } from "react-router-dom";
 
 function Scroll() {
-    // Initialized as null to handle the loading state properly
     const [movieData, setMovieData] = useState(null);
+    const navigate = useNavigate();
     const IMG_PATH = "https://image.tmdb.org/t/p/w1280";
 
     useEffect(() => {
@@ -16,8 +17,8 @@ function Scroll() {
                 const [trending, topRated, action, horror] = await Promise.all([
                     tmdb.get('/trending/all/day'),
                     tmdb.get('/movie/top_rated'),
-                    tmdb.get('/discover/movie', { params: { with_genres: 28 } }), // Action
-                    tmdb.get('/discover/movie', { params: { with_genres: 27 } })  // Horror
+                    tmdb.get('/discover/movie', { params: { with_genres: 28 } }),
+                    tmdb.get('/discover/movie', { params: { with_genres: 27 } })
                 ]);
 
                 const filterData = (arr) => arr.filter(item => 
@@ -37,7 +38,6 @@ function Scroll() {
         fetchSections();
     }, []);
 
-    // We assign a 'key' to each row that matches the keys in our movieData object
     const rows = [
         { id: 1, category: "trending", animate: ["0%", "-100%"] },
         { id: 2, category: "topRated", animate: ["-100%", "0%"] },
@@ -52,10 +52,10 @@ function Scroll() {
     );
     
     return (
-        <div id="Hot" className="scroll relative  h-screen w-full overflow-hidden flex flex-col bg-black">
+        <div id="Hot" className="scroll relative h-screen w-full overflow-hidden flex flex-col bg-black">
             <GoToNextSection direction="z-30 bottom-6 left-6" scrollTo="Contact"/>
             {rows.map((row) => {
-                // Get the specific movie list for this row
+                // Define currentMovies first
                 const currentMovies = movieData[row.category] || [];
 
                 return (
@@ -65,19 +65,23 @@ function Scroll() {
                             animate={{ x: row.animate }}
                             transition={{
                                 ease: "linear",
-                                duration: 80, // 300 was very slow; 80 is a smooth cinematic crawl
+                                duration: 80,
                                 repeat: Infinity,
                             }}
                         >
-                            {/* Double the specific row array for the infinite circle */}
+                            {/* Duplicate array for seamless infinite scroll */}
                             {[...currentMovies, ...currentMovies].map((item, idx) => {
                                 const imagePath = item.poster_path || item.backdrop_path;
                                 const fullImageUrl = `${IMG_PATH}${imagePath}`;
                                 const displayName = item.title || item.name;
+                                
+                                // Define mediaType INSIDE the map where 'item' exists
+                                const mediaType = item.media_type || (row.category === "trending" ? "movie" : "movie");
 
                                 return (
                                     <div 
                                         key={`${row.id}-${idx}`}
+                                        onClick={() => navigate(`/details/${mediaType}/${item.id}`)}
                                         className="card min-w-[25vw] h-full relative group cursor-pointer bg-neutral-900 border-r border-white/5" 
                                         style={{
                                             backgroundImage: imagePath ? `url(${fullImageUrl})` : 'none',

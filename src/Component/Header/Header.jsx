@@ -2,13 +2,30 @@ import { BiSearchAlt2 } from "react-icons/bi";
 import { motion } from "framer-motion";
 import './Header.css'
 import { useState } from "react";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 
 function Header() {
+
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("")
+  const navigate = useNavigate()
 
   const toggleSearch = () => {
     setIsSearchOpen(!isSearchOpen);
+  }
+
+  const handleSearch = () => {
+    if (searchQuery.trim()) {
+      navigate(`/search?q=${encodeURIComponent(searchQuery)}`)
+      setSearchQuery("")
+      setIsSearchOpen(false)
+    }
+  }
+
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      handleSearch();
+    }
   }
 
   return (
@@ -41,15 +58,24 @@ function Header() {
             <input
               type="text"
               id="aaa"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              onKeyDown={handleKeyDown}
               className={`bg-(--search-bg-mobile) z-100 md:bg-(--search-bg) lg:bg-(--search-bg) absolute right-7 transition-all duration-300 text-(--color-text) overflow-hidden border focus:border-amber-500 ${isSearchOpen
-                  ? 'w-[150px] border p-1 border-(--color-border) px-2 outline-0 z-30 rounded-2xl opacity-100'
-                  : 'w-0 border-none p-0 opacity-0 pointer-events-none'
+                ? 'w-[150px] border p-1 border-(--color-border) px-2 outline-0 z-30 rounded-2xl opacity-100'
+                : 'w-0 border-none p-0 opacity-0 pointer-events-none'
                 }`}
               placeholder="search..."
             />
             <BiSearchAlt2
               className={`text-xl cursor-pointer transition-all duration-300 hover:scale-110 hover:text-amber-500 ${isSearchOpen ? 'text-amber-500' : ''} transition-transform`}
-              onClick={toggleSearch}
+              onClick={() => {
+                if (isSearchOpen && searchQuery) {
+                  handleSearch();
+                } else {
+                  toggleSearch();
+                }
+              }}
             />
           </div>
         </nav>
