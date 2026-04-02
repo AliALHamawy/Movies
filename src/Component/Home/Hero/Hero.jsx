@@ -13,7 +13,6 @@ function Hero() {
 
     const itemsToFetch = [
         { id: 603692, type: 'movie', title: 'John Wick 4' },
-        { id: 1100096, type: 'movie', title: 'The Last of Us' }, // Example fix for TV vs Movie IDs
         { id: 119051, type: 'tv', title: 'Wednesday' },
         { id: 1399, type: 'tv', title: 'Game of Thrones' },
         { id: 671, type: 'movie', title: 'Harry Potter' },
