@@ -2,6 +2,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import './App.css'
 import { Contact, Footer, Header, Hero, Scroll, SideBar, Info, MovSir } from './Import'
 import SearchResults from './Component/MovSir/SearchResults/SearchResults'
+import { Analytics } from '@vercel/analytics/react'
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
         </Routes>
         <Footer />
       </BrowserRouter>
+      <Analytics />
     </>
   )
 }
