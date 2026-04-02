@@ -62,7 +62,7 @@ function SearchResults() {
     if (loading) return <div className="h-screen flex items-center justify-center text-white text-2xl">Searching...</div>;
 
     return (
-        <div className="movSir mt-25 flex flex-col text-left">
+        <div className="movSir mt-25 flex flex-col text-left min-h-[76vh]">
             <h1 className='my-15 text-(--color-text) text-4xl font-black m-auto '>
                 Results for: <span className="text-amber-500">{query}</span>
             </h1>
