@@ -2,14 +2,29 @@ import { useState, useEffect } from 'react';
 import './MovSir.css';
 import { motion } from "framer-motion";
 import tmdb from '../../services/tmdb';
-import { useNavigate } from 'react-router';
+import { useNavigate, useSearchParams } from 'react-router-dom'; // 1. استيراد useSearchParams
 
 function MovSir({ type }) {
     const [data, setData] = useState([]);
-    const [page, setPage] = useState(1);
     const [loading, setLoading] = useState(true);
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+    
+    // 2. استخدام useSearchParams لإدارة رقم الصفحة من الرابط مباشرة
+    const [searchParams, setSearchParams] = useSearchParams();
+    
+    // قراءة رقم الصفحة من الرابط، وإذا لم يكن موجوداً نعتبره 1
+    const page = parseInt(searchParams.get('page')) || 1;
 
+    // دالة لتحديث الصفحة في الرابط بدلاً من الـ State القديمة
+    const setPage = (newPageAction) => {
+        let nextPages;
+        if (typeof newPageAction === 'function') {
+            nextPages = newPageAction(page);
+        } else {
+            nextPages = newPageAction;
+        }
+        setSearchParams({ page: nextPages });
+    };
 
     const IMG_PATH = "https://image.tmdb.org/t/p/w1280";
 
@@ -25,9 +40,7 @@ function MovSir({ type }) {
                     }
                 });
 
-                const forbiddenIds = [879945, 1646787, 45933, 1650558, 1266990, 1489, 95897, 67136, 203737, 1301994, 687259, 79871, 1064028, 860410, 398818, 1015998, 519465, 1847, 1297842, 1652947, 346698, 228091]
-
-
+                const forbiddenIds = [879945, 1646787, 45933, 1650558, 1266990, 1489, 95897, 67136, 203737, 1301994, 687259, 79871, 1064028, 860410, 398818, 1015998, 519465, 1847, 1297842, 1652947, 346698, 228091];
                 const forbiddenKeywords = [
                     'lgbt', 'gay', 'lesbian', 'queer', 'bisexual',
                     'sex', 'erotic', 'porn', 'nudity', 'sensual',
@@ -57,7 +70,7 @@ function MovSir({ type }) {
         };
         fetchData();
         window.scrollTo(0, 0);
-    }, [type, page]);
+    }, [type, page]); // سيعمل الـ useEffect كلما تغير النوع أو رقم الصفحة في الرابط
 
     if (loading) return <div className="h-screen flex items-center justify-center text-white text-2xl">Loading...</div>;
 
@@ -91,6 +104,7 @@ function MovSir({ type }) {
                                     whileHover={{ scale: 1.05 }}
                                     whileTap={{ scale: 0.95 }}
                                     className="bg-(--color-border) shadow-xl transition-all duration-200 hover:bg-amber-500 px-6 py-2 rounded-full border border-(--btn-border) font-bold text-(--color-text)"
+                                    // هنا نقوم بتمرير رقم الصفحة الحالي لـ صفحة التفاصيل إذا أردنا استخدام الـ state (ولكن بالرابط لن نحتاجه لأن الـ Back الذكي بالمتصفح سيتكفل بالباقي)
                                     onClick={() => navigate(`/details/${type}/${item.id}`)}
                                 >
                                     Show Details
@@ -134,7 +148,7 @@ function MovSir({ type }) {
                     onClick={() => setPage(p => p + 1)}
                     className="flex items-center justify-center shrink-0 cursor-pointer bg-(--color-border) w-10 h-10 rounded-md"
                 >
-                    <svg xmlns="http://www.w3.org/2000/svg" className="w-3 fill-gray-300 rotate-180" viewBox="0 0 55.753 55.753">
+                    <svg xmlns="http://www.w3.org/2000/xl" className="w-3 fill-gray-300 rotate-180" viewBox="0 0 55.753 55.753">
                         <path d="M12.745 23.915c.283-.282.59-.52.913-.727L35.266 1.581a5.4 5.4 0 0 1 7.637 7.638L24.294 27.828l18.705 18.706a5.4 5.4 0 0 1-7.636 7.637L13.658 32.464a5.367 5.367 0 0 1-.913-.727 5.367 5.367 0 0 1-1.572-3.911 5.369 5.369 0 0 1 1.572-3.911z" />
                     </svg>
                 </li>
