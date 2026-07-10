@@ -8,10 +8,10 @@ function MovSir({ type }) {
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
-    
+
     // 2. استخدام useSearchParams لإدارة رقم الصفحة من الرابط مباشرة
     const [searchParams, setSearchParams] = useSearchParams();
-    
+
     // قراءة رقم الصفحة من الرابط، وإذا لم يكن موجوداً نعتبره 1
     const page = parseInt(searchParams.get('page')) || 1;
 
@@ -40,7 +40,7 @@ function MovSir({ type }) {
                     }
                 });
 
-                const forbiddenIds = [879945, 1646787, 45933, 1650558, 1266990, 1489, 95897, 67136, 203737, 1301994, 687259, 79871, 1064028, 860410, 398818, 1015998, 519465, 1847, 1297842, 1652947, 346698, 228091];
+                const forbiddenIds = [1089791, 879945, 1646787, 45933, 1650558, 1266990, 1489, 95897, 67136, 203737, 1301994, 687259, 79871, 1064028, 860410, 398818, 1015998, 519465, 1847, 1297842, 1652947, 346698, 228091];
                 const forbiddenKeywords = [
                     'lgbt', 'gay', 'lesbian', 'queer', 'bisexual',
                     'sex', 'erotic', 'porn', 'nudity', 'sensual',
